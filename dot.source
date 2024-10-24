@@ -1,0 +1,14 @@
+# /* ex: set filetype=sh fenc=utf-8 expandtab ts=4 sw=4 : */
+
+DIR="$( cd -P "$( dirname "$(readlink -f "${BASH_SOURCE[0]}")" )" && pwd )"
+
+cd $DIR
+SNAPSERVER_VERSION=$(grep -Po '(?<=FROM shk3bq4d/snapserver:).*' Dockerfile)
+LIBRESPOT_VERSION=$(grep -Po '(?<=shk3bq4d/librespot:)\S+' Dockerfile)
+TAG="shk3bq4d/snapserver-librespot:${LIBRESPOT_VERSION}-${SNAPSERVER_VERSION}"
+
+echo "SNAPSERVER_VERSION is $SNAPSERVER_VERSION"
+echo "LIBRESPOT_VERSION is $LIBRESPOT_VERSION"
+echo "TAG is $TAG"
+
+docker ps &>/dev/null && SUDO= || SUDO=sudo
